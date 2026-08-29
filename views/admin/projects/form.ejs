@@ -1,0 +1,41 @@
+<form action="<%= (project ? '/admin/projects/' + project._id : '/admin/projects') %>?_csrf=<%= encodeURIComponent(csrfToken) %>" method="POST" enctype="multipart/form-data">
+  <div class="admin-form-grid">
+    <div>
+      <div class="admin-panel-section">
+        <h3>Project Details</h3>
+        <div class="form-field"><label for="title">Title</label><input type="text" id="title" name="title" value="<%= project ? project.title : '' %>" required></div>
+        <div class="form-grid">
+          <div class="form-field"><label for="location">Location</label><input type="text" id="location" name="location" value="<%= project ? project.location : '' %>"></div>
+          <div class="form-field"><label for="projectType">Project Type</label><input type="text" id="projectType" name="projectType" value="<%= project ? project.projectType : '' %>" placeholder="e.g. Temple Installation"></div>
+        </div>
+        <div class="form-field"><label for="description">Description</label><textarea id="description" name="description" rows="5"><%= project ? project.description : '' %></textarea></div>
+        <div class="form-grid">
+          <div class="form-field"><label for="statueSize">Statue Size</label><input type="text" id="statueSize" name="statueSize" value="<%= project ? project.statueSize : '' %>"></div>
+          <div class="form-field"><label for="marbleType">Marble Used</label><input type="text" id="marbleType" name="marbleType" value="<%= project ? project.marbleType : '' %>"></div>
+        </div>
+        <div class="form-field"><label for="completionDate">Completion Date</label><input type="date" id="completionDate" name="completionDate" value="<%= project && project.completionDate ? new Date(project.completionDate).toISOString().slice(0,10) : '' %>"></div>
+        <div class="form-field"><label for="servicesProvided">Services Provided (comma separated)</label><input type="text" id="servicesProvided" name="servicesProvided" value="<%= project && project.servicesProvided ? project.servicesProvided.join(', ') : '' %>"></div>
+      </div>
+
+      <div class="admin-panel-section">
+        <h3>Images</h3>
+        <div class="form-field"><label for="images">Upload Images</label><input type="file" id="images" name="images" accept="image/jpeg,image/png,image/webp" multiple></div>
+        <% if (project && project.images && project.images.length) { %>
+        <div class="image-thumb-grid">
+          <% project.images.forEach(function(img) { %>
+            <div class="image-thumb"><img src="<%= img.mediumUrl %>" alt=""></div>
+          <% }) %>
+        </div>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="admin-panel-section">
+      <h3>Publish</h3>
+      <div class="form-field"><label for="order">Display Order</label><input type="number" id="order" name="order" value="<%= project ? project.order : 0 %>"></div>
+      <label style="display:flex; align-items:center; gap:8px; margin-bottom:18px;"><input type="checkbox" name="published" <%= (!project || project.published) ? 'checked' : '' %>> Published</label>
+      <button type="submit" class="btn btn--gold btn--block"><%= project ? 'Save Changes' : 'Create Project' %></button>
+      <a href="/admin/projects" class="btn btn--ghost btn--block" style="margin-top:10px;">Cancel</a>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,46 @@
+<div class="admin-panel-section">
+  <h3>Upload Images</h3>
+  <form action="/admin/gallery?_csrf=<%= encodeURIComponent(csrfToken) %>" method="POST" enctype="multipart/form-data">
+    <div class="form-grid">
+      <div class="form-field"><label for="title">Title</label><input type="text" id="title" name="title" placeholder="e.g. Hand carving in progress"></div>
+      <div class="form-field">
+        <label for="category">Category</label>
+        <select id="category" name="category">
+          <% categories.forEach(function(c) { %><option><%= c %></option><% }) %>
+        </select>
+      </div>
+      <div class="form-field form-field--full"><label for="description">Description</label><textarea id="description" name="description"></textarea></div>
+      <div class="form-field"><label for="order">Display Order</label><input type="number" id="order" name="order" value="0"></div>
+      <div class="form-field"><label style="display:flex; align-items:center; gap:8px; margin-top:24px;"><input type="checkbox" name="published" checked> Published</label></div>
+      <div class="form-field form-field--full">
+        <label for="images">Images (JPEG/PNG/WebP, up to 2MB each after compression)</label>
+        <input type="file" id="images" name="images" accept="image/jpeg,image/png,image/webp" multiple required>
+      </div>
+    </div>
+    <button type="submit" class="btn btn--gold">Upload</button>
+  </form>
+</div>
+
+<div class="admin-panel" style="margin-top:24px;">
+  <div class="admin-panel__head"><h3 style="margin:0; font-size:1.05rem;">Gallery Images (<%= images.length %>)</h3></div>
+  <% if (images.length) { %>
+  <table class="admin-table">
+    <thead><tr><th>Image</th><th>Title</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>
+      <% images.forEach(function(img) { %>
+      <tr>
+        <td><img src="<%= img.thumbUrl %>" class="admin-thumb" alt=""></td>
+        <td><%= img.title %></td>
+        <td><%= img.category %></td>
+        <td><span class="status-pill <%= img.published ? 'status-Confirmed' : 'status-Cancelled' %>"><%= img.published ? 'Published' : 'Unpublished' %></span></td>
+        <td>
+          <button type="button" class="btn btn--ghost btn--sm" data-delete-gallery="<%= img._id %>">Delete</button>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } else { %>
+    <div class="empty-state">No gallery images yet.</div>
+  <% } %>
+</div>

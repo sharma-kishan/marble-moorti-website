@@ -1,0 +1,30 @@
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / Temple Projects</div>
+    <div class="section-head section-head--left fade-in" style="max-width:720px;">
+      <span class="eyebrow">Portfolio</span>
+      <h1>Temple Projects</h1>
+      <p>Large-scale marble installations completed for temples across India and abroad.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container">
+    <% if (projects.length) { %>
+    <div class="grid grid--3">
+      <% projects.forEach(function(p) { %>
+      <a href="/temple-projects/<%= p.slug %>" class="card-project fade-in">
+        <% if (p.coverUrl) { %><img src="<%= p.coverUrl %>" alt="<%= p.title %>" loading="lazy"><% } %>
+        <div class="card-project__info">
+          <span class="loc"><%= p.location %></span>
+          <h3><%= p.title %></h3>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+    <% } else { %>
+      <div class="empty-state">Temple project case studies will appear here once added from the admin panel.</div>
+    <% } %>
+  </div>
+</section>

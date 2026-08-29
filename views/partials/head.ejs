@@ -1,0 +1,32 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= typeof meta !== 'undefined' && meta.title ? meta.title : (typeof title !== 'undefined' ? title : settings.businessName) %></title>
+<meta name="description" content="<%= typeof meta !== 'undefined' && meta.description ? meta.description : settings.seoDefaults.description %>">
+<% if (typeof meta !== 'undefined' && meta.canonical) { %>
+<link rel="canonical" href="<%= meta.canonical %>">
+<% } %>
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="<%= settings.businessName %>">
+<meta property="og:title" content="<%= typeof meta !== 'undefined' && meta.title ? meta.title : title %>">
+<meta property="og:description" content="<%= typeof meta !== 'undefined' && meta.description ? meta.description : settings.seoDefaults.description %>">
+<meta property="og:type" content="website">
+<% if (typeof meta !== 'undefined' && meta.canonical) { %><meta property="og:url" content="<%= meta.canonical %>"><% } %>
+<% if (typeof meta !== 'undefined' && meta.image) { %><meta property="og:image" content="<%= meta.image %>"><% } %>
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<%= typeof meta !== 'undefined' && meta.title ? meta.title : title %>">
+<meta name="twitter:description" content="<%= typeof meta !== 'undefined' && meta.description ? meta.description : settings.seoDefaults.description %>">
+
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+
+<% if (typeof structuredData !== 'undefined' && structuredData) { %>
+  <% structuredData.forEach(function(schema) { %>
+<script type="application/ld+json"><%- JSON.stringify(schema) %></script>
+  <% }) %>
+<% } %>

@@ -1,0 +1,46 @@
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / Gallery</div>
+    <div class="section-head section-head--left fade-in" style="max-width:720px;">
+      <span class="eyebrow">Gallery</span>
+      <h1>Workshop, Carving &amp; Finished Statues</h1>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container">
+    <div class="filter-bar">
+      <a href="/gallery" class="filter-chip <%= !activeCategory ? 'is-active' : '' %>">All</a>
+      <% categories.forEach(function(cat) { %>
+        <a href="/gallery?category=<%= encodeURIComponent(cat) %>" class="filter-chip <%= activeCategory === cat ? 'is-active' : '' %>"><%= cat %></a>
+      <% }) %>
+    </div>
+
+    <% if (images.length) { %>
+    <div class="masonry">
+      <% images.forEach(function(img) { %>
+      <div class="masonry__item">
+        <img src="<%= img.thumbUrl %>" data-lightbox="<%= img.mediumUrl %>" alt="<%= img.title %>" loading="lazy">
+        <div class="masonry__caption"><%= img.title %></div>
+      </div>
+      <% }) %>
+    </div>
+
+    <% if (totalPages > 1) { %>
+    <div class="pagination">
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <a href="/gallery?<%= activeCategory ? 'category=' + encodeURIComponent(activeCategory) + '&' : '' %>page=<%= i %>" class="<%= i === page ? 'is-active' : '' %>"><%= i %></a>
+      <% } %>
+    </div>
+    <% } %>
+    <% } else { %>
+      <div class="empty-state">Gallery images will appear here once added from the admin panel.</div>
+    <% } %>
+  </div>
+</section>
+
+<div class="lightbox-overlay">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <img src="" alt="">
+</div>

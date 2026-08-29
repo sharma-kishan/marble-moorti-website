@@ -1,0 +1,75 @@
+<form action="/admin/settings?_csrf=<%= encodeURIComponent(csrfToken) %>" method="POST" enctype="multipart/form-data">
+  <div class="admin-form-grid">
+    <div>
+      <div class="admin-panel-section">
+        <h3>Business Identity</h3>
+        <div class="form-grid">
+          <div class="form-field"><label for="businessName">Business Name</label><input type="text" id="businessName" name="businessName" value="<%= settings.businessName %>"></div>
+          <div class="form-field"><label for="tagline">Tagline</label><input type="text" id="tagline" name="tagline" value="<%= settings.tagline %>"></div>
+        </div>
+        <div class="form-field">
+          <label for="logo">Logo</label>
+          <input type="file" id="logo" name="logo" accept="image/jpeg,image/png,image/webp">
+          <% if (settings.logoUrl) { %><img src="<%= settings.logoUrl %>" class="admin-thumb" style="margin-top:8px;" alt=""><% } %>
+        </div>
+      </div>
+
+      <div class="admin-panel-section">
+        <h3>Contact Information</h3>
+        <div class="form-grid">
+          <div class="form-field"><label for="phone">Phone</label><input type="text" id="phone" name="phone" value="<%= settings.phone %>"></div>
+          <div class="form-field"><label for="whatsapp">WhatsApp Number</label><input type="text" id="whatsapp" name="whatsapp" value="<%= settings.whatsapp %>" placeholder="+91XXXXXXXXXX"></div>
+          <div class="form-field"><label for="email">Email</label><input type="email" id="email" name="email" value="<%= settings.email %>"></div>
+          <div class="form-field"><label for="workingHours">Working Hours</label><input type="text" id="workingHours" name="workingHours" value="<%= settings.workingHours %>"></div>
+        </div>
+        <div class="form-field"><label for="address">Address</label><textarea id="address" name="address"><%= settings.address %></textarea></div>
+        <div class="form-field"><label for="googleMapsEmbedUrl">Google Maps Embed URL</label><input type="text" id="googleMapsEmbedUrl" name="googleMapsEmbedUrl" value="<%= settings.googleMapsEmbedUrl %>"></div>
+      </div>
+
+      <div class="admin-panel-section">
+        <h3>Social Media</h3>
+        <div class="form-grid">
+          <div class="form-field"><label for="instagram">Instagram URL</label><input type="text" id="instagram" name="instagram" value="<%= settings.social.instagram %>"></div>
+          <div class="form-field"><label for="facebook">Facebook URL</label><input type="text" id="facebook" name="facebook" value="<%= settings.social.facebook %>"></div>
+          <div class="form-field"><label for="youtube">YouTube URL</label><input type="text" id="youtube" name="youtube" value="<%= settings.social.youtube %>"></div>
+        </div>
+      </div>
+
+      <div class="admin-panel-section">
+        <h3>Homepage Hero</h3>
+        <div class="form-field"><label for="heroHeadline">Headline</label><input type="text" id="heroHeadline" name="heroHeadline" value="<%= settings.heroHeadline %>"></div>
+        <div class="form-field"><label for="heroSubtext">Supporting Text</label><textarea id="heroSubtext" name="heroSubtext"><%= settings.heroSubtext %></textarea></div>
+        <div class="form-field">
+          <label for="heroImage">Hero Image</label>
+          <input type="file" id="heroImage" name="heroImage" accept="image/jpeg,image/png,image/webp">
+          <% if (settings.heroImageUrl) { %><img src="<%= settings.heroImageUrl %>" style="margin-top:8px; border-radius:6px; max-width:260px;" alt=""><% } %>
+        </div>
+      </div>
+
+      <div class="admin-panel-section">
+        <h3>Trust Statistics</h3>
+        <div class="form-grid">
+          <div class="form-field"><label for="yearsOfCraftsmanship">Years of Craftsmanship</label><input type="text" id="yearsOfCraftsmanship" name="yearsOfCraftsmanship" value="<%= settings.stats.yearsOfCraftsmanship %>" placeholder="e.g. 25"></div>
+          <div class="form-field"><label for="murtisCrafted">Murtis Crafted</label><input type="text" id="murtisCrafted" name="murtisCrafted" value="<%= settings.stats.murtisCrafted %>" placeholder="e.g. 5000"></div>
+          <div class="form-field"><label for="templesServed">Temples Served</label><input type="text" id="templesServed" name="templesServed" value="<%= settings.stats.templesServed %>" placeholder="e.g. 200"></div>
+          <div class="form-field"><label for="statesDelivered">States Delivered</label><input type="text" id="statesDelivered" name="statesDelivered" value="<%= settings.stats.statesDelivered %>" placeholder="e.g. 15"></div>
+        </div>
+        <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" name="internationalDelivery" <%= settings.stats.internationalDelivery ? 'checked' : '' %>> We deliver internationally</label>
+        <p class="form-hint" style="margin-top:10px;">Leave fields blank if the figure isn't confirmed yet — the homepage will simply hide that statistic rather than showing an invented number.</p>
+      </div>
+
+      <div class="admin-panel-section">
+        <h3>Footer &amp; SEO Defaults</h3>
+        <div class="form-field"><label for="footerText">Footer Text</label><textarea id="footerText" name="footerText"><%= settings.footerText %></textarea></div>
+        <div class="form-field"><label for="titleSuffix">Default Title Suffix</label><input type="text" id="titleSuffix" name="titleSuffix" value="<%= settings.seoDefaults.titleSuffix %>"></div>
+        <div class="form-field"><label for="seoDescription">Default Meta Description</label><textarea id="seoDescription" name="seoDescription"><%= settings.seoDefaults.description %></textarea></div>
+      </div>
+    </div>
+
+    <div class="admin-panel-section">
+      <h3>Save</h3>
+      <p class="muted" style="font-size:0.85rem;">Changes apply across the entire website immediately.</p>
+      <button type="submit" class="btn btn--gold btn--block">Save Settings</button>
+    </div>
+  </div>
+</form>

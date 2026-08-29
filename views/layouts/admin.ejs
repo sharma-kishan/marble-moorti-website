@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> · Admin · <%= settings.businessName %></title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <meta name="csrf-token" content="<%= csrfToken %>">
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <a href="/admin" class="admin-brand">
+        <span class="admin-brand__name"><%= settings.businessName %></span>
+        <span class="admin-brand__tag">Admin Panel</span>
+      </a>
+      <nav class="admin-nav">
+        <a href="/admin" class="<%= currentPath === '/admin' || currentPath === '/admin/' ? 'is-active' : '' %>">Dashboard</a>
+        <a href="/admin/products" class="<%= currentPath.startsWith('/admin/products') ? 'is-active' : '' %>">Products</a>
+        <a href="/admin/categories" class="<%= currentPath.startsWith('/admin/categories') ? 'is-active' : '' %>">Categories</a>
+        <a href="/admin/gallery" class="<%= currentPath.startsWith('/admin/gallery') ? 'is-active' : '' %>">Gallery</a>
+        <a href="/admin/projects" class="<%= currentPath.startsWith('/admin/projects') ? 'is-active' : '' %>">Temple Projects</a>
+        <a href="/admin/testimonials" class="<%= currentPath.startsWith('/admin/testimonials') ? 'is-active' : '' %>">Testimonials</a>
+        <a href="/admin/enquiries" class="<%= currentPath.startsWith('/admin/enquiries') ? 'is-active' : '' %>">Enquiries</a>
+        <a href="/admin/settings" class="<%= currentPath.startsWith('/admin/settings') ? 'is-active' : '' %>">Website Settings</a>
+      </nav>
+      <a href="/" class="admin-view-site" target="_blank" rel="noopener">View Website ↗</a>
+    </aside>
+
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <h1 class="admin-topbar__title"><%= title %></h1>
+        <div class="admin-topbar__user">
+          <span><%= admin ? admin.name : '' %></span>
+          <form action="/admin/logout" method="POST" class="inline-form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn btn--ghost btn--sm">Logout</button>
+          </form>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <%- include('../partials/flash-messages') %>
+        <%- body %>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<section class="hero">
+  <% if (heroImageUrl) { %>
+    <div class="hero__bg" style="background-image:url('<%= heroImageUrl %>')"></div>
+  <% } else { %>
+    <div class="hero__bg" style="background: linear-gradient(160deg, #3B2A1E, #17110D);"></div>
+  <% } %>
+  <div class="hero__overlay"></div>
+  <div class="container hero__content">
+    <span class="eyebrow">Jaipur, Rajasthan</span>
+    <h1><%= settings.heroHeadline %></h1>
+    <p><%= settings.heroSubtext %></p>
+    <div class="hero__cta">
+      <a href="/products" class="btn btn--gold">Explore Collection</a>
+      <a href="/request-quote" class="btn btn--outline-light">Request a Quote</a>
+    </div>
+  </div>
+  <div class="hero__scroll">Scroll</div>
+</section>
+
+<% if (settings.stats && (settings.stats.yearsOfCraftsmanship || settings.stats.murtisCrafted || settings.stats.templesServed || settings.stats.statesDelivered)) { %>
+<section class="stats-bar">
+  <div class="container stats-grid">
+    <% if (settings.stats.yearsOfCraftsmanship) { %>
+    <div class="stat-item"><div class="stat-value" data-counter="<%= parseInt(settings.stats.yearsOfCraftsmanship) || 0 %>" data-suffix="+">0</div><div class="stat-label">Years of Craftsmanship</div></div>
+    <% } %>
+    <% if (settings.stats.murtisCrafted) { %>
+    <div class="stat-item"><div class="stat-value" data-counter="<%= parseInt(settings.stats.murtisCrafted) || 0 %>" data-suffix="+">0</div><div class="stat-label">Murtis Crafted</div></div>
+    <% } %>
+    <% if (settings.stats.templesServed) { %>
+    <div class="stat-item"><div class="stat-value" data-counter="<%= parseInt(settings.stats.templesServed) || 0 %>" data-suffix="+">0</div><div class="stat-label">Temples Served</div></div>
+    <% } %>
+    <% if (settings.stats.statesDelivered) { %>
+    <div class="stat-item"><div class="stat-value" data-counter="<%= parseInt(settings.stats.statesDelivered) || 0 %>" data-suffix="+">0</div><div class="stat-label">States Delivered</div></div>
+    <% } %>
+    <% if (settings.stats.internationalDelivery) { %>
+    <div class="stat-item"><div class="stat-value">✦</div><div class="stat-label">International Delivery</div></div>
+    <% } %>
+  </div>
+</section>
+<% } %>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Featured Collection</span>
+      <h2>Sculptures Carved With Devotion</h2>
+      <p>A selection of our most requested marble murtis, each hand-finished by artisans trained in generations-old carving traditions.</p>
+    </div>
+
+    <% if (featuredProducts.length) { %>
+    <div class="grid grid--4">
+      <% featuredProducts.forEach(function(p) { %>
+      <div class="card-product fade-in">
+        <div class="card-product__img-wrap">
+          <% if (p.featured) { %><span class="card-product__badge">Featured</span><% } %>
+          <% if (p.thumbUrl) { %><img src="<%= p.thumbUrl %>" alt="<%= p.name %>" loading="lazy"><% } %>
+        </div>
+        <div class="card-product__body">
+          <span class="card-product__category"><%= p.category ? p.category.name : '' %></span>
+          <h3 class="card-product__name"><%= p.name %></h3>
+          <span class="card-product__meta"><%= p.marbleType %></span>
+          <span class="card-product__price">Price: Contact for Quote</span>
+          <div class="card-product__actions">
+            <a href="/products/<%= p.slug %>" class="btn btn--ghost">View Details</a>
+            <a href="/request-quote?product=<%= p.slug %>" class="btn btn--gold">Get Quote</a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } else { %>
+      <p class="empty-state">Featured products will appear here once added from the admin panel.</p>
+    <% } %>
+
+    <div style="text-align:center; margin-top:44px;">
+      <a href="/products" class="btn btn--outline">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<% if (categories.length) { %>
+<section class="section section--beige">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Categories</span>
+      <h2>Explore by Deity &amp; Tradition</h2>
+    </div>
+    <div class="grid grid--4">
+      <% categories.slice(0,8).forEach(function(cat) { %>
+      <a href="/products?category=<%= cat._id %>" class="card-category fade-in">
+        <% if (cat.imageUrl) { %><img src="<%= cat.imageUrl %>" alt="<%= cat.name %>" loading="lazy"><% } %>
+        <span class="card-category__label"><span><%= cat.name %></span></span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<section class="section section--dark">
+  <div class="container" style="display:grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items:center;">
+    <div class="fade-in">
+      <span class="eyebrow">Custom Moorti</span>
+      <h2>Commission a Statue Made Only for You</h2>
+      <p>From an initial sketch to the final polish, our artisans work with you to create a marble murti sized, finished, and detailed exactly to your temple or home.</p>
+      <a href="/custom-moorti" class="btn btn--gold" style="margin-top:16px;">Start Your Custom Moorti</a>
+    </div>
+    <div class="fade-in" style="border-left: 1px solid rgba(255,255,255,0.15); padding-left: 50px;">
+      <ul style="display:flex; flex-direction:column; gap:18px;">
+        <li>✦ Choice of Makrana, Italian, and coloured marble</li>
+        <li>✦ Hand carving by trained Jaipur artisans</li>
+        <li>✦ Optional painting and gold decoration</li>
+        <li>✦ Domestic and international delivery</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<% if (projects.length) { %>
+<section class="section">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Temple Projects</span>
+      <h2>Large-Scale Installations</h2>
+    </div>
+    <div class="grid grid--3">
+      <% projects.forEach(function(p) { %>
+      <a href="/temple-projects/<%= p.slug %>" class="card-project fade-in">
+        <% if (p.coverUrl) { %><img src="<%= p.coverUrl %>" alt="<%= p.title %>" loading="lazy"><% } %>
+        <div class="card-project__info">
+          <span class="loc"><%= p.location %></span>
+          <h3><%= p.title %></h3>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% if (testimonials.length) { %>
+<section class="section section--beige">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Testimonials</span>
+      <h2>Trusted by Temples &amp; Homes Alike</h2>
+    </div>
+    <div class="grid grid--3">
+      <% testimonials.slice(0,3).forEach(function(t) { %>
+      <div class="card-testimonial fade-in">
+        <div class="card-testimonial__stars"><%= '★'.repeat(t.rating) %><%= '☆'.repeat(5 - t.rating) %></div>
+        <p class="card-testimonial__review">"<%= t.review %>"</p>
+        <div class="card-testimonial__person">
+          <% if (t.photoUrl) { %><img src="<%= t.photoUrl %>" class="card-testimonial__avatar" alt="<%= t.name %>"><% } else { %><div class="card-testimonial__avatar"></div><% } %>
+          <div>
+            <div class="card-testimonial__name"><%= t.name %></div>
+            <div class="card-testimonial__loc"><%= t.location %></div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% if (galleryPreview.length) { %>
+<section class="section">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Workshop &amp; Craftsmanship</span>
+      <h2>A Glimpse Into the Studio</h2>
+    </div>
+    <div class="masonry fade-in">
+      <% galleryPreview.forEach(function(g) { %>
+        <div class="masonry__item"><img src="<%= g.thumbUrl %>" alt="<%= g.title %>" loading="lazy"></div>
+      <% }) %>
+    </div>
+    <div style="text-align:center; margin-top:34px;">
+      <a href="/gallery" class="btn btn--outline">View Full Gallery</a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<section class="section section--dark" style="text-align:center;">
+  <div class="container">
+    <span class="eyebrow" style="justify-content:center;">Get In Touch</span>
+    <h2>Ready to Bring a Marble Murti Home?</h2>
+    <p style="max-width:560px; margin:0 auto 28px;">Tell us about the statue you need and our team in Jaipur will respond with sizing, marble options, and pricing.</p>
+    <a href="/request-quote" class="btn btn--gold">Request a Quote</a>
+  </div>
+</section>

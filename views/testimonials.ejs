@@ -1,0 +1,33 @@
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / Testimonials</div>
+    <div class="section-head section-head--left fade-in" style="max-width:720px;">
+      <span class="eyebrow">Testimonials</span>
+      <h1>What Our Customers Say</h1>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container">
+    <% if (testimonials.length) { %>
+    <div class="grid grid--3">
+      <% testimonials.forEach(function(t) { %>
+      <div class="card-testimonial fade-in">
+        <div class="card-testimonial__stars"><%= '★'.repeat(t.rating) %><%= '☆'.repeat(5 - t.rating) %></div>
+        <p class="card-testimonial__review">"<%= t.review %>"</p>
+        <div class="card-testimonial__person">
+          <% if (t.photoUrl) { %><img src="<%= t.photoUrl %>" class="card-testimonial__avatar" alt="<%= t.name %>"><% } else { %><div class="card-testimonial__avatar"></div><% } %>
+          <div>
+            <div class="card-testimonial__name"><%= t.name %></div>
+            <div class="card-testimonial__loc"><%= t.location %></div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } else { %>
+      <div class="empty-state">Testimonials will appear here once added from the admin panel.</div>
+    <% } %>
+  </div>
+</section>

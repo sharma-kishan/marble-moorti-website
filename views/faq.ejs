@@ -1,0 +1,36 @@
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / FAQ</div>
+    <div class="section-head section-head--left fade-in" style="max-width:720px;">
+      <span class="eyebrow">Questions</span>
+      <h1>Frequently Asked Questions</h1>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container" style="max-width:760px;">
+    <style>
+      .faq-item { border-bottom: 1px solid var(--border-soft); padding: 22px 0; }
+      .faq-item__question { display:flex; justify-content:space-between; align-items:center; width:100%; background:none; border:none; text-align:left; font-family:var(--font-display); font-size:1.15rem; color:var(--espresso); padding:0; }
+      .faq-item__answer { max-height:0; overflow:hidden; transition: max-height 0.3s ease; color: var(--text-muted); }
+      .faq-item.is-open .faq-item__answer { max-height:300px; margin-top:12px; }
+      .faq-item__question::after { content:'+'; font-size:1.4rem; color:var(--champagne-gold); }
+      .faq-item.is-open .faq-item__question::after { content:'−'; }
+    </style>
+
+    <% [
+      ['Can statues be fully customized?', 'Yes — size, posture, marble type, and finish can all be customized. Share your requirements on the Request a Quote page and our team will confirm feasibility and pricing.'],
+      ['Which marble types do you work with?', 'We primarily work in Makrana White, Makrana Pink, and Italian marble, along with green and black marble for select pieces.'],
+      ['Do you ship internationally?', 'We do ship overseas for temples and collectors; delivery times and costs depend on destination and statue size.'],
+      ['How long does a custom order take?', 'Timelines depend on the size and detail of the statue. We will confirm an estimated completion date once your requirements are finalized.'],
+      ['Do you provide pricing on the website?', 'Most statues are custom-made, so pricing is provided after a quote request rather than listed publicly.'],
+      ['Can I send a reference image for a custom statue?', 'Yes — the Request a Quote form allows you to upload reference images to guide the design.'],
+    ].forEach(function(faq) { %>
+    <div class="faq-item fade-in">
+      <button class="faq-item__question"><%= faq[0] %></button>
+      <div class="faq-item__answer"><p><%= faq[1] %></p></div>
+    </div>
+    <% }) %>
+  </div>
+</section>

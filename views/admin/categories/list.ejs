@@ -1,0 +1,32 @@
+<div class="admin-panel">
+  <div class="admin-panel__head">
+    <h3 style="margin:0; font-size:1.05rem;">Categories</h3>
+    <a href="/admin/categories/new" class="btn btn--gold btn--sm">+ Add Category</a>
+  </div>
+  <% if (categories.length) { %>
+  <table class="admin-table">
+    <thead><tr><th>Image</th><th>Name</th><th>Group</th><th>Products</th><th>Order</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>
+      <% categories.forEach(function(cat) { %>
+      <tr>
+        <td><% if (cat.imageUrl) { %><img src="<%= cat.imageUrl %>" class="admin-thumb" alt=""><% } %></td>
+        <td><%= cat.name %></td>
+        <td><%= cat.group %></td>
+        <td><%= cat.productCount %></td>
+        <td><%= cat.order %></td>
+        <td><span class="status-pill <%= cat.published ? 'status-Confirmed' : 'status-Cancelled' %>"><%= cat.published ? 'Published' : 'Unpublished' %></span></td>
+        <td style="white-space:nowrap;">
+          <a href="/admin/categories/<%= cat._id %>/edit" class="btn btn--ghost btn--sm">Edit</a>
+          <form action="/admin/categories/<%= cat._id %>/delete" method="POST" class="inline-form" data-confirm="Delete this category?">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn btn--ghost btn--sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } else { %>
+    <div class="empty-state">No categories yet. <a href="/admin/categories/new">Add your first category</a>.</div>
+  <% } %>
+</div>

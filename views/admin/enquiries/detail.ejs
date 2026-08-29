@@ -1,0 +1,89 @@
+<div class="admin-form-grid">
+  <div>
+    <div class="admin-panel-section">
+      <h3>Customer Details</h3>
+      <table class="spec-table">
+        <tr><td>Name</td><td><%= enquiry.name %></td></tr>
+        <tr><td>Phone</td><td><a href="tel:<%= enquiry.phone %>"><%= enquiry.phone %></a></td></tr>
+        <% if (enquiry.whatsapp) { %><tr><td>WhatsApp</td><td><a href="https://wa.me/<%= enquiry.whatsapp.replace(/\D/g,'') %>" target="_blank" rel="noopener"><%= enquiry.whatsapp %></a></td></tr><% } %>
+        <% if (enquiry.email) { %><tr><td>Email</td><td><a href="mailto:<%= enquiry.email %>"><%= enquiry.email %></a></td></tr><% } %>
+        <% if (enquiry.country || enquiry.city) { %><tr><td>Location</td><td><%= [enquiry.city, enquiry.country].filter(Boolean).join(', ') %></td></tr><% } %>
+      </table>
+    </div>
+
+    <div class="admin-panel-section">
+      <h3>Requirement</h3>
+      <table class="spec-table">
+        <tr><td>Product / Statue</td><td><%= enquiry.product ? enquiry.product.name : (enquiry.productName || '—') %></td></tr>
+        <% if (enquiry.height) { %><tr><td>Approx. Height</td><td><%= enquiry.height %></td></tr><% } %>
+        <tr><td>Quantity</td><td><%= enquiry.quantity %></td></tr>
+        <% if (enquiry.marblePreference) { %><tr><td>Marble Preference</td><td><%= enquiry.marblePreference %></td></tr><% } %>
+        <% if (enquiry.requiredDate) { %><tr><td>Required By</td><td><%= new Date(enquiry.requiredDate).toLocaleDateString('en-IN') %></td></tr><% } %>
+        <% if (enquiry.deliveryLocation) { %><tr><td>Delivery Location</td><td><%= enquiry.deliveryLocation %></td></tr><% } %>
+      </table>
+      <% if (enquiry.message) { %>
+        <h4 style="margin-top:16px; font-size:0.95rem;">Message</h4>
+        <p><%= enquiry.message %></p>
+      <% } %>
+    </div>
+
+    <% if (enquiry.referenceImages && enquiry.referenceImages.length) { %>
+    <div class="admin-panel-section">
+      <h3>Reference Images</h3>
+      <div class="image-thumb-grid">
+        <% enquiry.referenceImages.forEach(function(img) { %>
+          <a href="<%= img.mediumUrl %>" target="_blank" class="image-thumb"><img src="<%= img.thumbUrl %>" alt=""></a>
+        <% }) %>
+      </div>
+    </div>
+    <% } %>
+
+    <div class="admin-panel-section">
+      <h3>Internal Notes</h3>
+      <% if (enquiry.adminNotes && enquiry.adminNotes.length) { %>
+        <% enquiry.adminNotes.slice().reverse().forEach(function(n) { %>
+        <div style="padding:10px 0; border-bottom:1px solid var(--border-soft);">
+          <p style="margin:0;"><%= n.note %></p>
+          <span class="muted" style="font-size:0.75rem;"><%= new Date(n.createdAt).toLocaleString('en-IN') %><%= n.addedBy && n.addedBy.name ? ' · ' + n.addedBy.name : '' %></span>
+        </div>
+        <% }) %>
+      <% } else { %>
+        <p class="muted">No notes yet.</p>
+      <% } %>
+      <form action="/admin/enquiries/<%= enquiry._id %>/notes" method="POST" style="margin-top:14px;">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="form-field"><textarea name="note" placeholder="Add an internal note…" rows="3" required></textarea></div>
+        <button type="submit" class="btn btn--ghost btn--sm">Add Note</button>
+      </form>
+    </div>
+  </div>
+
+  <div>
+    <div class="admin-panel-section">
+      <h3>Status</h3>
+      <span class="status-pill status-<%= enquiry.status.replace(/\s+/g,'-') %>" style="font-size:0.85rem; padding:8px 16px;"><%= enquiry.status %></span>
+      <form id="enquiryStatusForm" action="/admin/enquiries/<%= enquiry._id %>/status" method="POST" style="margin-top:16px;">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="form-field">
+          <label for="enquiryStatusSelect">Update Status</label>
+          <select id="enquiryStatusSelect" name="status">
+            <% statuses.forEach(function(s) { %>
+              <option value="<%= s %>" <%= enquiry.status === s ? 'selected' : '' %>><%= s %></option>
+            <% }) %>
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <div class="admin-panel-section">
+      <h3>Reference</h3>
+      <p><strong><%= enquiry.enquiryId %></strong></p>
+      <p class="muted" style="font-size:0.82rem;">Received <%= new Date(enquiry.createdAt).toLocaleString('en-IN') %></p>
+      <form action="/admin/enquiries/<%= enquiry._id %>/delete" method="POST" data-confirm="Delete this enquiry permanently?" style="margin-top:14px;">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button type="submit" class="btn btn--ghost btn--block">Delete Enquiry</button>
+      </form>
+      <a href="/admin/enquiries" class="btn btn--ghost btn--block" style="margin-top:10px;">Back to List</a>
+    </div>
+  </div>
+</div>

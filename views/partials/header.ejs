@@ -1,0 +1,29 @@
+<header class="site-header" id="siteHeader">
+  <div class="site-header__inner container">
+    <a href="/" class="brand">
+      <% if (settings.logo) { %>
+        <img src="data:<%= settings.logo.thumbnail.mimeType %>;base64,<%= settings.logo.thumbnail.data %>" alt="<%= settings.businessName %>" class="brand__logo-img">
+      <% } %>
+      <span class="brand__text">
+        <span class="brand__name"><%= settings.businessName %></span>
+        <span class="brand__tagline"><%= settings.tagline %></span>
+      </span>
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
+      <a href="/" class="<%= currentPath === '/' ? 'is-active' : '' %>">Home</a>
+      <a href="/about" class="<%= currentPath === '/about' ? 'is-active' : '' %>">About</a>
+      <a href="/products" class="<%= currentPath.startsWith('/products') ? 'is-active' : '' %>">Products</a>
+      <a href="/categories" class="<%= currentPath === '/categories' ? 'is-active' : '' %>">Categories</a>
+      <a href="/custom-moorti" class="<%= currentPath === '/custom-moorti' ? 'is-active' : '' %>">Custom Moorti</a>
+      <a href="/temple-projects" class="<%= currentPath.startsWith('/temple-projects') ? 'is-active' : '' %>">Temple Projects</a>
+      <a href="/gallery" class="<%= currentPath === '/gallery' ? 'is-active' : '' %>">Gallery</a>
+      <a href="/contact" class="<%= currentPath === '/contact' ? 'is-active' : '' %>">Contact</a>
+      <a href="/request-quote" class="btn btn--gold btn--sm nav-cta">Request Quote</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>

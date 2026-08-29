@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> · <%= settings.businessName %></title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-auth-body">
+  <div class="admin-auth">
+    <div class="admin-auth__card">
+      <div class="admin-auth__brand">
+        <span class="brand__name"><%= settings.businessName %></span>
+        <span class="brand__tagline"><%= settings.tagline %></span>
+      </div>
+      <%- include('../partials/flash-messages') %>
+      <%- body %>
+    </div>
+  </div>
+</body>
+</html>

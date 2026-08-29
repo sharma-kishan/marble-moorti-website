@@ -1,0 +1,82 @@
+<form action="<%= (product ? '/admin/products/' + product._id : '/admin/products') %>?_csrf=<%= encodeURIComponent(csrfToken) %>" method="POST" enctype="multipart/form-data">
+  <div class="admin-form-grid">
+    <div>
+      <div class="admin-panel-section">
+        <h3>Basic Information</h3>
+        <div class="form-field"><label for="name">Product Name</label><input type="text" id="name" name="name" value="<%= product ? product.name : '' %>" required></div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+              <option value="">Select category</option>
+              <% categories.forEach(function(cat) { %>
+                <option value="<%= cat._id %>" <%= product && String(product.category) === String(cat._id) ? 'selected' : '' %>><%= cat.name %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="form-field"><label for="subcategory">Subcategory</label><input type="text" id="subcategory" name="subcategory" value="<%= product ? product.subcategory : '' %>"></div>
+        </div>
+        <div class="form-field"><label for="shortDescription">Short Description</label><textarea id="shortDescription" name="shortDescription" maxlength="300"><%= product ? product.shortDescription : '' %></textarea></div>
+        <div class="form-field"><label for="description">Full Description</label><textarea id="description" name="description" rows="5"><%= product ? product.description : '' %></textarea></div>
+        <div class="form-field"><label for="craftsmanship">Craftsmanship Notes</label><textarea id="craftsmanship" name="craftsmanship"><%= product ? product.craftsmanship : '' %></textarea></div>
+      </div>
+
+      <div class="admin-panel-section">
+        <h3>Specifications</h3>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="marbleType">Marble Type</label>
+            <select id="marbleType" name="marbleType">
+              <% ['Makrana White','Makrana Pink','Italian Marble','Green Marble','Black Marble','Other'].forEach(function(mt) { %>
+                <option <%= product && product.marbleType === mt ? 'selected' : '' %>><%= mt %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="form-field"><label for="finish">Finish</label><input type="text" id="finish" name="finish" value="<%= product ? product.finish : '' %>"></div>
+        </div>
+        <div class="form-field"><label for="availableSizes">Available Sizes (comma or line separated)</label><input type="text" id="availableSizes" name="availableSizes" value="<%= product && product.availableSizes ? product.availableSizes.join(', ') : '' %>" placeholder="12 inch, 24 inch, Custom"></div>
+        <div class="form-grid">
+          <div class="form-field"><label for="height">Height</label><input type="text" id="height" name="height" value="<%= product && product.dimensions ? product.dimensions.height : '' %>"></div>
+          <div class="form-field"><label for="width">Width</label><input type="text" id="width" name="width" value="<%= product && product.dimensions ? product.dimensions.width : '' %>"></div>
+          <div class="form-field"><label for="depth">Depth</label><input type="text" id="depth" name="depth" value="<%= product && product.dimensions ? product.dimensions.depth : '' %>"></div>
+        </div>
+        <div class="form-field"><label for="deliveryInfo">Delivery Information</label><input type="text" id="deliveryInfo" name="deliveryInfo" value="<%= product ? product.deliveryInfo : '' %>"></div>
+      </div>
+
+      <div class="admin-panel-section">
+        <h3>Images</h3>
+        <div class="form-field">
+          <label for="images">Upload Images (JPEG/PNG/WebP, up to 3MB each after compression)</label>
+          <input type="file" id="images" name="images" accept="image/jpeg,image/png,image/webp" multiple>
+        </div>
+        <% if (product && product.images && product.images.length) { %>
+        <div class="image-thumb-grid">
+          <% product.images.forEach(function(img) { %>
+          <div class="image-thumb">
+            <img src="<%= img.thumbUrl %>" alt="">
+            <button type="button" data-delete-image="<%= img._id %>" data-product-id="<%= product._id %>">&times;</button>
+          </div>
+          <% }) %>
+        </div>
+        <% } %>
+      </div>
+
+      <div class="admin-panel-section">
+        <h3>SEO</h3>
+        <div class="form-field"><label for="seoTitle">SEO Title</label><input type="text" id="seoTitle" name="seoTitle" value="<%= product ? product.seoTitle : '' %>"></div>
+        <div class="form-field"><label for="seoDescription">SEO Description</label><textarea id="seoDescription" name="seoDescription"><%= product ? product.seoDescription : '' %></textarea></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="admin-panel-section">
+        <h3>Publish</h3>
+        <label style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><input type="checkbox" name="published" <%= (!product || product.published) ? 'checked' : '' %>> Published</label>
+        <label style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><input type="checkbox" name="featured" <%= product && product.featured ? 'checked' : '' %>> Featured on Homepage</label>
+        <label style="display:flex; align-items:center; gap:8px; margin-bottom:18px;"><input type="checkbox" name="customizationAvailable" <%= (!product || product.customizationAvailable) ? 'checked' : '' %>> Customization Available</label>
+        <button type="submit" class="btn btn--gold btn--block"><%= product ? 'Save Changes' : 'Create Product' %></button>
+        <a href="/admin/products" class="btn btn--ghost btn--block" style="margin-top:10px;">Cancel</a>
+      </div>
+    </div>
+  </div>
+</form>

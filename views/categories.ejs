@@ -1,0 +1,30 @@
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / Categories</div>
+    <div class="section-head section-head--left fade-in" style="max-width:720px;">
+      <span class="eyebrow">Browse</span>
+      <h1>Statue Categories</h1>
+      <p>From Hindu deities to Jain Tirthankars, temple statues and fully custom marble art.</p>
+    </div>
+  </div>
+</section>
+
+<% Object.keys(grouped).forEach(function(group) { %>
+<section class="section--tight">
+  <div class="container">
+    <h2 class="fade-in"><%= group %></h2>
+    <div class="grid grid--4" style="margin-top:24px;">
+      <% grouped[group].forEach(function(cat) { %>
+      <a href="/products?category=<%= cat._id %>" class="card-category fade-in">
+        <% if (cat.imageUrl) { %><img src="<%= cat.imageUrl %>" alt="<%= cat.name %>" loading="lazy"><% } %>
+        <span class="card-category__label"><span><%= cat.name %></span></span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% }) %>
+
+<% if (!Object.keys(grouped).length) { %>
+<section class="section"><div class="container empty-state">Categories will appear here once added from the admin panel.</div></section>
+<% } %>

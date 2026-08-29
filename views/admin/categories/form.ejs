@@ -1,0 +1,28 @@
+<form action="<%= (category ? '/admin/categories/' + category._id : '/admin/categories') %>?_csrf=<%= encodeURIComponent(csrfToken) %>" method="POST" enctype="multipart/form-data">
+  <div class="admin-form-grid">
+    <div class="admin-panel-section">
+      <h3>Category Details</h3>
+      <div class="form-field"><label for="name">Name</label><input type="text" id="name" name="name" value="<%= category ? category.name : '' %>" required></div>
+      <div class="form-field">
+        <label for="group">Group</label>
+        <select id="group" name="group">
+          <% ['Hindu Deities','Jain Statues','Temple Statues','Custom Marble Art'].forEach(function(g) { %>
+            <option <%= category && category.group === g ? 'selected' : '' %>><%= g %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="form-field"><label for="description">Description</label><textarea id="description" name="description"><%= category ? category.description : '' %></textarea></div>
+      <div class="form-field"><label for="image">Category Image</label><input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp"></div>
+      <% if (category && category.imageUrl) { %><img src="<%= category.imageUrl %>" class="admin-thumb" style="width:90px; height:90px; margin-top:8px;" alt=""><% } %>
+      <div class="form-field"><label for="seoTitle">SEO Title</label><input type="text" id="seoTitle" name="seoTitle" value="<%= category ? category.seoTitle : '' %>"></div>
+      <div class="form-field"><label for="seoDescription">SEO Description</label><textarea id="seoDescription" name="seoDescription"><%= category ? category.seoDescription : '' %></textarea></div>
+    </div>
+    <div class="admin-panel-section">
+      <h3>Display</h3>
+      <div class="form-field"><label for="order">Display Order</label><input type="number" id="order" name="order" value="<%= category ? category.order : 0 %>"></div>
+      <label style="display:flex; align-items:center; gap:8px; margin-bottom:18px;"><input type="checkbox" name="published" <%= (!category || category.published) ? 'checked' : '' %>> Published</label>
+      <button type="submit" class="btn btn--gold btn--block"><%= category ? 'Save Changes' : 'Create Category' %></button>
+      <a href="/admin/categories" class="btn btn--ghost btn--block" style="margin-top:10px;">Cancel</a>
+    </div>
+  </div>
+</form>

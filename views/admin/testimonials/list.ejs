@@ -1,0 +1,31 @@
+<div class="admin-panel">
+  <div class="admin-panel__head">
+    <h3 style="margin:0; font-size:1.05rem;">Testimonials</h3>
+    <a href="/admin/testimonials/new" class="btn btn--gold btn--sm">+ Add Testimonial</a>
+  </div>
+  <% if (testimonials.length) { %>
+  <table class="admin-table">
+    <thead><tr><th>Photo</th><th>Name</th><th>Location</th><th>Rating</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>
+      <% testimonials.forEach(function(t) { %>
+      <tr>
+        <td><% if (t.photoUrl) { %><img src="<%= t.photoUrl %>" class="admin-thumb" style="border-radius:50%;" alt=""><% } %></td>
+        <td><%= t.name %></td>
+        <td><%= t.location %></td>
+        <td><%= '★'.repeat(t.rating) %></td>
+        <td><span class="status-pill <%= t.published ? 'status-Confirmed' : 'status-Cancelled' %>"><%= t.published ? 'Published' : 'Unpublished' %></span></td>
+        <td style="white-space:nowrap;">
+          <a href="/admin/testimonials/<%= t._id %>/edit" class="btn btn--ghost btn--sm">Edit</a>
+          <form action="/admin/testimonials/<%= t._id %>/delete" method="POST" class="inline-form" data-confirm="Delete this testimonial?">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn btn--ghost btn--sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } else { %>
+    <div class="empty-state">No testimonials yet. <a href="/admin/testimonials/new">Add your first testimonial</a>.</div>
+  <% } %>
+</div>

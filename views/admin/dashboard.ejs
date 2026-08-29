@@ -1,0 +1,37 @@
+<div class="dash-grid">
+  <div class="dash-card"><div class="value"><%= stats.totalProducts %></div><div class="label">Total Products</div></div>
+  <div class="dash-card <%= stats.newEnquiries > 0 ? 'is-alert' : '' %>"><div class="value"><%= stats.newEnquiries %></div><div class="label">New Enquiries</div></div>
+  <div class="dash-card"><div class="value"><%= stats.totalEnquiries %></div><div class="label">Total Enquiries</div></div>
+  <div class="dash-card"><div class="value"><%= stats.totalCategories %></div><div class="label">Categories</div></div>
+  <div class="dash-card"><div class="value"><%= stats.totalGalleryImages %></div><div class="label">Gallery Images</div></div>
+  <div class="dash-card"><div class="value"><%= stats.totalTestimonials %></div><div class="label">Testimonials</div></div>
+  <div class="dash-card"><div class="value"><%= stats.totalProjects %></div><div class="label">Temple Projects</div></div>
+</div>
+
+<div class="admin-panel">
+  <div class="admin-panel__head">
+    <h3 style="margin:0; font-size:1.05rem;">Recent Enquiries</h3>
+    <a href="/admin/enquiries" class="btn btn--ghost btn--sm">View All</a>
+  </div>
+  <% if (recentEnquiries.length) { %>
+  <table class="admin-table">
+    <thead>
+      <tr><th>Enquiry ID</th><th>Customer</th><th>Product</th><th>Status</th><th>Date</th><th></th></tr>
+    </thead>
+    <tbody>
+      <% recentEnquiries.forEach(function(e) { %>
+      <tr>
+        <td><%= e.enquiryId %></td>
+        <td><%= e.name %><br><span class="muted" style="font-size:0.78rem;"><%= e.phone %></span></td>
+        <td><%= e.productName || '—' %></td>
+        <td><span class="status-pill status-<%= e.status.replace(/\s+/g,'-') %>"><%= e.status %></span></td>
+        <td><%= new Date(e.createdAt).toLocaleDateString('en-IN') %></td>
+        <td><a href="/admin/enquiries/<%= e._id %>" class="btn btn--ghost btn--sm">View</a></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } else { %>
+    <div class="empty-state">No enquiries yet.</div>
+  <% } %>
+</div>

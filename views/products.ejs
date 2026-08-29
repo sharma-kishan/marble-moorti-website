@@ -1,0 +1,75 @@
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / Products</div>
+    <div class="section-head section-head--left fade-in" style="max-width:720px;">
+      <span class="eyebrow">Our Collection</span>
+      <h1>Marble Statues &amp; Murtis</h1>
+      <p>Browse handcrafted Hindu deities, Jain statues, and temple sculptures — every piece can also be customized to size and finish.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container">
+    <form id="productFilterForm" method="GET" action="/products" class="filter-bar" style="align-items:center;">
+      <input type="text" name="q" value="<%= query.q || '' %>" placeholder="Search statues…" style="padding:10px 16px; border:1px solid var(--border-soft); border-radius:20px; min-width:200px;">
+      <select name="category">
+        <option value="">All Categories</option>
+        <% categories.forEach(function(cat) { %>
+          <option value="<%= cat._id %>" <%= query.category === String(cat._id) ? 'selected' : '' %>><%= cat.name %></option>
+        <% }) %>
+      </select>
+      <select name="marbleType">
+        <option value="">All Marble Types</option>
+        <% ['Makrana White','Makrana Pink','Italian Marble','Green Marble','Black Marble','Other'].forEach(function(mt) { %>
+          <option value="<%= mt %>" <%= query.marbleType === mt ? 'selected' : '' %>><%= mt %></option>
+        <% }) %>
+      </select>
+      <select name="sort">
+        <option value="featured" <%= (!query.sort || query.sort==='featured') ? 'selected' : '' %>>Featured</option>
+        <option value="newest" <%= query.sort==='newest' ? 'selected' : '' %>>Newest</option>
+        <option value="name_asc" <%= query.sort==='name_asc' ? 'selected' : '' %>>Name: A–Z</option>
+        <option value="name_desc" <%= query.sort==='name_desc' ? 'selected' : '' %>>Name: Z–A</option>
+      </select>
+      <button type="submit" class="btn btn--gold btn--sm">Filter</button>
+    </form>
+
+    <% if (products.length) { %>
+    <div class="grid grid--4">
+      <% products.forEach(function(p) { %>
+      <div class="card-product fade-in">
+        <div class="card-product__img-wrap">
+          <% if (p.featured) { %><span class="card-product__badge">Featured</span><% } %>
+          <% if (p.thumbUrl) { %><img src="<%= p.thumbUrl %>" alt="<%= p.name %>" loading="lazy"><% } %>
+        </div>
+        <div class="card-product__body">
+          <span class="card-product__category"><%= p.category ? p.category.name : '' %></span>
+          <h3 class="card-product__name"><%= p.name %></h3>
+          <span class="card-product__meta"><%= p.marbleType %><% if (p.availableSizes && p.availableSizes.length) { %> · <%= p.availableSizes.join(', ') %><% } %></span>
+          <span class="card-product__price">Price: Contact for Quote</span>
+          <div class="card-product__actions">
+            <a href="/products/<%= p.slug %>" class="btn btn--ghost">View Details</a>
+            <a href="/request-quote?product=<%= p.slug %>" class="btn btn--gold">Get Quote</a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+
+    <% if (totalPages > 1) { %>
+    <div class="pagination">
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <% var qs = new URLSearchParams(Object.assign({}, query, { page: i })).toString(); %>
+        <a href="/products?<%= qs %>" class="<%= i === page ? 'is-active' : '' %>"><%= i %></a>
+      <% } %>
+    </div>
+    <% } %>
+
+    <% } else { %>
+      <div class="empty-state">
+        <p>No products match your filters yet.</p>
+        <a href="/products" class="btn btn--outline">Clear Filters</a>
+      </div>
+    <% } %>
+  </div>
+</section>

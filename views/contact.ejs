@@ -1,0 +1,49 @@
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / Contact</div>
+    <div class="section-head section-head--left fade-in" style="max-width:720px;">
+      <span class="eyebrow">Get In Touch</span>
+      <h1>Contact Us</h1>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container" style="display:grid; grid-template-columns: 1fr 1.2fr; gap:56px;">
+    <div class="fade-in">
+      <h2>Visit or Reach Out</h2>
+      <table class="spec-table">
+        <% if (settings.address) { %><tr><td>Address</td><td><%= settings.address %></td></tr><% } %>
+        <% if (settings.phone) { %><tr><td>Phone</td><td><a href="tel:<%= settings.phone %>"><%= settings.phone %></a></td></tr><% } %>
+        <% if (settings.whatsapp) { %><tr><td>WhatsApp</td><td><a href="https://wa.me/<%= settings.whatsapp.replace(/\D/g,'') %>" target="_blank" rel="noopener"><%= settings.whatsapp %></a></td></tr><% } %>
+        <% if (settings.email) { %><tr><td>Email</td><td><a href="mailto:<%= settings.email %>"><%= settings.email %></a></td></tr><% } %>
+        <% if (settings.workingHours) { %><tr><td>Working Hours</td><td><%= settings.workingHours %></td></tr><% } %>
+      </table>
+      <% if (!settings.address && !settings.phone && !settings.email) { %>
+        <p class="muted">Business contact details will appear here once configured in the admin settings.</p>
+      <% } %>
+
+      <a href="/request-quote" class="btn btn--gold" style="margin-top:16px;">Request a Quote Instead</a>
+
+      <% if (settings.googleMapsEmbedUrl) { %>
+      <div style="margin-top:32px; border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-soft);">
+        <iframe src="<%= settings.googleMapsEmbedUrl %>" width="100%" height="260" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map"></iframe>
+      </div>
+      <% } %>
+    </div>
+
+    <div class="form-card fade-in">
+      <h2>Send a Message</h2>
+      <form action="/contact" method="POST">
+        <div class="form-grid">
+          <div class="form-field"><label for="name">Name</label><input type="text" id="name" name="name" required></div>
+          <div class="form-field"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" required></div>
+          <div class="form-field"><label for="email">Email</label><input type="email" id="email" name="email"></div>
+          <div class="form-field"><label for="city">City</label><input type="text" id="city" name="city"></div>
+          <div class="form-field form-field--full"><label for="message">Message</label><textarea id="message" name="message" required></textarea></div>
+        </div>
+        <button type="submit" class="btn btn--gold btn--block">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>

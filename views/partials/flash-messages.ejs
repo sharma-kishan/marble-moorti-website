@@ -1,0 +1,10 @@
+<% if (typeof successMessages !== 'undefined' && successMessages && successMessages.length) { %>
+  <% successMessages.forEach(function(msg) { %>
+    <div class="flash flash--success"><%= msg %></div>
+  <% }) %>
+<% } %>
+<% if (typeof errorMessages !== 'undefined' && errorMessages && errorMessages.length) { %>
+  <% errorMessages.forEach(function(msg) { %>
+    <div class="flash flash--error"><%= msg %></div>
+  <% }) %>
+<% } %>

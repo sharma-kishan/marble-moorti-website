@@ -1,0 +1,92 @@
+<section class="section--tight">
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / <a href="/products">Products</a> / <%= product.name %></div>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:56px;">
+      <div class="fade-in">
+        <div class="product-gallery__main">
+          <% if (product.images && product.images.length) { %>
+            <img id="productMainImage" src="<%= product.images[0].mediumUrl %>" data-lightbox="<%= product.images[0].originalUrl %>" alt="<%= product.name %>">
+          <% } %>
+        </div>
+        <% if (product.images && product.images.length > 1) { %>
+        <div class="product-gallery__thumbs">
+          <% product.images.forEach(function(img, i) { %>
+            <img src="<%= img.thumbUrl %>" data-full="<%= img.mediumUrl %>" class="<%= i === 0 ? 'is-active' : '' %>" alt="<%= product.name %> thumbnail <%= i+1 %>">
+          <% }) %>
+        </div>
+        <% } %>
+      </div>
+
+      <div class="fade-in">
+        <span class="badge-gold"><%= product.category ? product.category.name : '' %></span>
+        <h1 style="margin-top:14px;"><%= product.name %></h1>
+        <p class="price-note">Price: Contact for Quote</p>
+        <p><%= product.shortDescription %></p>
+
+        <table class="spec-table">
+          <tr><td>Marble Type</td><td><%= product.marbleType %></td></tr>
+          <% if (product.availableSizes && product.availableSizes.length) { %>
+          <tr><td>Available Sizes</td><td><%= product.availableSizes.join(', ') %></td></tr>
+          <% } %>
+          <% if (product.dimensions && (product.dimensions.height || product.dimensions.width || product.dimensions.depth)) { %>
+          <tr><td>Dimensions</td><td><%= [product.dimensions.height, product.dimensions.width, product.dimensions.depth].filter(Boolean).join(' × ') %></td></tr>
+          <% } %>
+          <% if (product.finish) { %><tr><td>Finish</td><td><%= product.finish %></td></tr><% } %>
+          <tr><td>Customization</td><td><%= product.customizationAvailable ? 'Available on request' : 'Not applicable' %></td></tr>
+          <% if (product.deliveryInfo) { %><tr><td>Delivery</td><td><%= product.deliveryInfo %></td></tr><% } %>
+        </table>
+
+        <div style="display:flex; gap:14px; margin-top:10px; flex-wrap:wrap;">
+          <a href="/request-quote?product=<%= product.slug %>" class="btn btn--gold">Request Quote</a>
+          <% if (settings.whatsapp) { %>
+          <a class="btn btn--outline" target="_blank" rel="noopener" href="https://wa.me/<%= settings.whatsapp.replace(/\D/g,'') %>?text=<%= encodeURIComponent('I am interested in ' + product.name + '. Please share details.') %>">Enquire on WhatsApp</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--beige">
+  <div class="container" style="max-width:820px;">
+    <h2>Description</h2>
+    <p><%= product.description || product.shortDescription %></p>
+    <% if (product.craftsmanship) { %>
+      <h2 style="margin-top:36px;">Craftsmanship</h2>
+      <p><%= product.craftsmanship %></p>
+    <% } %>
+  </div>
+</section>
+
+<% if (related && related.length) { %>
+<section class="section">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">You May Also Like</span>
+      <h2>Related Statues</h2>
+    </div>
+    <div class="grid grid--4">
+      <% related.forEach(function(p) { %>
+      <div class="card-product fade-in">
+        <div class="card-product__img-wrap">
+          <% if (p.thumbUrl) { %><img src="<%= p.thumbUrl %>" alt="<%= p.name %>" loading="lazy"><% } %>
+        </div>
+        <div class="card-product__body">
+          <h3 class="card-product__name"><%= p.name %></h3>
+          <span class="card-product__price">Price: Contact for Quote</span>
+          <div class="card-product__actions">
+            <a href="/products/<%= p.slug %>" class="btn btn--ghost">View</a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<div class="lightbox-overlay">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <img src="" alt="">
+</div>

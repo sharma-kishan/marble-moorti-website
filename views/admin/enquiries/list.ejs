@@ -1,0 +1,43 @@
+<div class="admin-panel">
+  <div class="admin-panel__head">
+    <form method="GET" style="display:flex; gap:10px; flex-wrap:wrap;">
+      <input type="text" name="q" value="<%= filters.q || '' %>" placeholder="Search by name, phone, email, ID…" style="padding:9px 14px; border:1px solid var(--border-soft); border-radius:4px; min-width:220px;">
+      <select name="status">
+        <option value="">All Statuses</option>
+        <% statuses.forEach(function(s) { %>
+          <option value="<%= s %>" <%= filters.status === s ? 'selected' : '' %>><%= s %></option>
+        <% }) %>
+      </select>
+      <button type="submit" class="btn btn--ghost btn--sm">Filter</button>
+    </form>
+    <span class="badge-gold"><%= newCount %> New</span>
+  </div>
+
+  <% if (enquiries.length) { %>
+  <table class="admin-table">
+    <thead><tr><th>Enquiry ID</th><th>Customer</th><th>Product</th><th>Location</th><th>Date</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+      <% enquiries.forEach(function(e) { %>
+      <tr>
+        <td><%= e.enquiryId %></td>
+        <td><%= e.name %><br><span class="muted" style="font-size:0.78rem;"><%= e.phone %></span></td>
+        <td><%= e.product ? e.product.name : (e.productName || '—') %></td>
+        <td><%= e.deliveryLocation || e.city || '—' %></td>
+        <td><%= new Date(e.createdAt).toLocaleDateString('en-IN') %></td>
+        <td><span class="status-pill status-<%= e.status.replace(/\s+/g,'-') %>"><%= e.status %></span></td>
+        <td><a href="/admin/enquiries/<%= e._id %>" class="btn btn--ghost btn--sm">View</a></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% if (totalPages > 1) { %>
+  <div class="pagination" style="padding:20px;">
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <a href="?status=<%= filters.status || '' %>&q=<%= filters.q || '' %>&page=<%= i %>" class="<%= i === page ? 'is-active' : '' %>"><%= i %></a>
+    <% } %>
+  </div>
+  <% } %>
+  <% } else { %>
+    <div class="empty-state">No enquiries match your filters.</div>
+  <% } %>
+</div>

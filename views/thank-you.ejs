@@ -1,0 +1,14 @@
+<section class="section" style="text-align:center; padding-top:110px;">
+  <div class="container" style="max-width:560px;">
+    <div class="divider-gold"></div>
+    <h1>Thank You</h1>
+    <p>Your enquiry has been received. Our team will get back to you shortly.</p>
+    <% if (ref) { %>
+      <p class="badge-gold" style="font-size:0.9rem;">Reference ID: <%= ref %></p>
+    <% } %>
+    <div style="margin-top:30px; display:flex; gap:14px; justify-content:center;">
+      <a href="/" class="btn btn--outline">Back to Home</a>
+      <a href="/products" class="btn btn--gold">Continue Browsing</a>
+    </div>
+  </div>
+</section>

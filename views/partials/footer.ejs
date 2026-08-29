@@ -1,0 +1,61 @@
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="footer-col footer-col--brand">
+      <span class="brand__name brand__name--footer"><%= settings.businessName %></span>
+      <p class="footer-tagline"><%= settings.tagline %></p>
+      <p class="footer-text"><%= settings.footerText || 'Handcrafted marble murtis and sacred sculptures, carved by artisans in Jaipur, Rajasthan.' %></p>
+      <div class="footer-social">
+        <% if (settings.social && settings.social.instagram) { %><a href="<%= settings.social.instagram %>" aria-label="Instagram" target="_blank" rel="noopener">Instagram</a><% } %>
+        <% if (settings.social && settings.social.facebook) { %><a href="<%= settings.social.facebook %>" aria-label="Facebook" target="_blank" rel="noopener">Facebook</a><% } %>
+        <% if (settings.social && settings.social.youtube) { %><a href="<%= settings.social.youtube %>" aria-label="YouTube" target="_blank" rel="noopener">YouTube</a><% } %>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/custom-moorti">Custom Moorti</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="/products?category=ganesh">Ganesh Murti</a></li>
+        <li><a href="/products?category=radha-krishna">Radha Krishna</a></li>
+        <li><a href="/products?category=shiva">Shiva</a></li>
+        <li><a href="/products?category=durga">Durga Mata</a></li>
+        <li><a href="/products?category=jain-statues">Jain Statues</a></li>
+        <li><a href="/custom-moorti">Custom Statues</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul class="footer-contact">
+        <% if (settings.phone) { %><li><a href="tel:<%= settings.phone %>"><%= settings.phone %></a></li><% } %>
+        <% if (settings.whatsapp) { %><li><a href="https://wa.me/<%= settings.whatsapp.replace(/\D/g,'') %>" target="_blank" rel="noopener">WhatsApp: <%= settings.whatsapp %></a></li><% } %>
+        <% if (settings.email) { %><li><a href="mailto:<%= settings.email %>"><%= settings.email %></a></li><% } %>
+        <% if (settings.address) { %><li><%= settings.address %></li><% } %>
+        <% if (settings.workingHours) { %><li><%= settings.workingHours %></li><% } %>
+        <% if (!settings.phone && !settings.email && !settings.address) { %>
+          <li class="muted">Business details coming soon — add them in the admin settings.</li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="site-footer__bottom container">
+    <p>&copy; <%= new Date().getFullYear() %> <%= settings.businessName %>. All rights reserved.</p>
+    <div class="footer-legal">
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms-and-conditions">Terms &amp; Conditions</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div>
+</footer>

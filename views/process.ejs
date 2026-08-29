@@ -1,0 +1,38 @@
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / Our Process</div>
+    <div class="section-head section-head--left fade-in" style="max-width:720px;">
+      <span class="eyebrow">How We Work</span>
+      <h1>Our Process</h1>
+      <p>Ten stages carry every murti from first conversation to final installation.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container" style="max-width:760px;">
+    <div class="process-list">
+      <% [
+        ['Requirement Discussion', 'We understand the deity, size, marble preference, and budget you have in mind.'],
+        ['Design Selection', 'Reference images or sketches are reviewed and, if needed, adapted to your temple or space.'],
+        ['Marble Selection', 'The right block of Makrana, Italian, or coloured marble is chosen for the piece.'],
+        ['Initial Carving', 'The rough form is roughed out from the marble block.'],
+        ['Detailed Hand Carving', 'Artisans carve facial features, ornamentation, and fine detail by hand.'],
+        ['Finishing', 'The surface is smoothed and polished to the desired sheen.'],
+        ['Painting / Decoration', 'Colour and gold detailing are applied where requested.'],
+        ['Quality Inspection', 'Every statue is checked for proportion, finish, and structural soundness.'],
+        ['Packaging', 'Custom cushioned packaging is built around the statue\'s size and weight.'],
+        ['Delivery / Installation', 'The statue is shipped and, for large projects, installed on site.'],
+      ].forEach(function(step, i) { %>
+      <div class="process-step fade-in">
+        <div class="process-step__num"><%= String(i+1).padStart(2,'0') %></div>
+        <div class="process-step__line"></div>
+        <div class="process-step__body">
+          <h3><%= step[0] %></h3>
+          <p><%= step[1] %></p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>

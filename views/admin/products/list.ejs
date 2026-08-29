@@ -1,0 +1,49 @@
+<div class="admin-panel">
+  <div class="admin-panel__head">
+    <form method="GET" style="display:flex; gap:10px;">
+      <input type="text" name="q" value="<%= q %>" placeholder="Search products…" style="padding:9px 14px; border:1px solid var(--border-soft); border-radius:4px;">
+      <button type="submit" class="btn btn--ghost btn--sm">Search</button>
+    </form>
+    <a href="/admin/products/new" class="btn btn--gold btn--sm">+ Add Product</a>
+  </div>
+
+  <% if (products.length) { %>
+  <table class="admin-table">
+    <thead>
+      <tr><th>Image</th><th>Name</th><th>Category</th><th>Marble</th><th>Featured</th><th>Status</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      <% products.forEach(function(p) { %>
+      <tr>
+        <td><% if (p.thumbUrl) { %><img src="<%= p.thumbUrl %>" class="admin-thumb" alt=""><% } %></td>
+        <td><%= p.name %></td>
+        <td><%= p.category ? p.category.name : '—' %></td>
+        <td><%= p.marbleType %></td>
+        <td><%= p.featured ? 'Yes' : 'No' %></td>
+        <td>
+          <button class="status-pill <%= p.published ? 'status-Confirmed' : 'status-Cancelled' %>" data-toggle-publish="<%= p._id %>" style="border:none;">
+            <%= p.published ? 'Published' : 'Unpublished' %>
+          </button>
+        </td>
+        <td style="white-space:nowrap;">
+          <a href="/admin/products/<%= p._id %>/edit" class="btn btn--ghost btn--sm">Edit</a>
+          <form action="/admin/products/<%= p._id %>/delete" method="POST" class="inline-form" data-confirm="Delete this product permanently?">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn btn--ghost btn--sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% if (totalPages > 1) { %>
+  <div class="pagination" style="padding:20px;">
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <a href="?q=<%= q %>&page=<%= i %>" class="<%= i === page ? 'is-active' : '' %>"><%= i %></a>
+    <% } %>
+  </div>
+  <% } %>
+  <% } else { %>
+    <div class="empty-state">No products yet. <a href="/admin/products/new">Add your first product</a>.</div>
+  <% } %>
+</div>

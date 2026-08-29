@@ -1,0 +1,43 @@
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a> / Services</div>
+    <div class="section-head section-head--left fade-in" style="max-width:720px;">
+      <span class="eyebrow">What We Offer</span>
+      <h1>Services</h1>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container">
+    <div class="grid grid--3">
+      <% [
+        ['Marble Statue Manufacturing', 'Ready-to-order Hindu deities, Jain statues, and decorative marble sculptures.'],
+        ['Custom Moorti Manufacturing', 'Bespoke statues carved to your exact posture, size, and finish requirements.'],
+        ['Temple Idol Manufacturing', 'Garbhagriha murtis carved to temple tradition and scale.'],
+        ['Large-Scale Temple Projects', 'End-to-end execution of large temple installations, from design to delivery.'],
+        ['Marble Carving', 'Hand carving by artisans trained in traditional Jaipur techniques.'],
+        ['Marble Finishing', 'Polishing and detailing for a smooth, temple-ready surface.'],
+        ['Statue Painting', 'Traditional colour work applied by hand where required.'],
+        ['Gold Decoration', 'Gold detailing for ornamentation and jewellery elements.'],
+        ['Temple Installation', 'On-site placement and installation support for large statues.'],
+        ['Packaging', 'Secure, cushioned packaging built for the size and fragility of each piece.'],
+        ['Domestic Shipping', 'Careful transport to homes and temples across India.'],
+        ['International Shipping', 'Export handling for overseas temples and collectors.'],
+      ].forEach(function(s) { %>
+      <div class="card-testimonial fade-in">
+        <h3><%= s[0] %></h3>
+        <p class="muted"><%= s[1] %></p>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section--dark" style="text-align:center;">
+  <div class="container">
+    <h2>Need Something Specific?</h2>
+    <p style="max-width:500px; margin:0 auto 24px;">Tell us what you're looking for and we'll recommend the right marble, size, and finish.</p>
+    <a href="/request-quote" class="btn btn--gold">Request a Quote</a>
+  </div>
+</section>

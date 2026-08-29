@@ -1,0 +1,53 @@
+<section class="hero" style="min-height:60vh;">
+  <div class="hero__bg" style="background: linear-gradient(160deg, #3B2A1E, #17110D);"></div>
+  <div class="hero__overlay"></div>
+  <div class="container hero__content">
+    <span class="eyebrow">Made to Order</span>
+    <h1>Your Custom Marble Moorti</h1>
+    <p>Choose the deity, the marble, the size and the finish — we carve it exactly to your specification.</p>
+    <div class="hero__cta">
+      <a href="/request-quote" class="btn btn--gold">Start Your Custom Moorti</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Why Choose Custom Work</span>
+      <h2>Built Around Your Space and Tradition</h2>
+      <p>A custom murti lets you specify posture, proportion, marble type, and finish so the final statue fits your temple or home exactly as envisioned.</p>
+    </div>
+    <div class="grid grid--3">
+      <div class="card-testimonial fade-in"><h3>Available Marble Types</h3><p class="muted">Makrana White, Makrana Pink, Italian Marble, Green Marble, Black Marble, and more.</p></div>
+      <div class="card-testimonial fade-in"><h3>Available Sizes</h3><p class="muted">From small home-temple murtis to large statues for temple garbhagrihas.</p></div>
+      <div class="card-testimonial fade-in"><h3>Design Consultation</h3><p class="muted">We discuss reference images, posture, and proportions before carving begins.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--beige">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">The Process</span>
+      <h2>From Block to Blessing</h2>
+    </div>
+    <div class="process-list" style="max-width:720px; margin:0 auto;">
+      <% ['Hand Carving','Finishing','Painting / Decoration','Quality Inspection','Packaging','Delivery'].forEach(function(step, i) { %>
+      <div class="process-step fade-in">
+        <div class="process-step__num"><%= String(i+1).padStart(2,'0') %></div>
+        <div class="process-step__line"></div>
+        <div class="process-step__body"><h3><%= step %></h3></div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section--dark" style="text-align:center;">
+  <div class="container">
+    <h2>Start Your Custom Moorti</h2>
+    <p style="max-width:520px; margin:0 auto 24px;">Share your requirements and reference images — our team will respond with options and pricing.</p>
+    <a href="/request-quote" class="btn btn--gold">Request a Quote</a>
+  </div>
+</section>
