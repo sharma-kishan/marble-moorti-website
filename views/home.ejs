@@ -1,6 +1,10 @@
-<section class="hero">
-  <% if (heroImageUrl) { %>
-    <div class="hero__bg" style="background-image:url('<%= heroImageUrl %>')"></div>
+<section class="hero" id="heroSlider">
+  <% if (heroSlides && heroSlides.length) { %>
+    <div class="hero__slides">
+      <% heroSlides.forEach(function(src, i) { %>
+        <div class="hero__slide <%= i === 0 ? 'is-active' : '' %>" style="background-image:url('<%= src %>')"></div>
+      <% }) %>
+    </div>
   <% } else { %>
     <div class="hero__bg" style="background: linear-gradient(160deg, #3B2A1E, #17110D);"></div>
   <% } %>
@@ -14,6 +18,13 @@
       <a href="/request-quote" class="btn btn--outline-light">Request a Quote</a>
     </div>
   </div>
+  <% if (heroSlides && heroSlides.length > 1) { %>
+    <div class="hero__dots">
+      <% heroSlides.forEach(function(src, i) { %>
+        <button type="button" class="hero__dot <%= i === 0 ? 'is-active' : '' %>" data-slide-index="<%= i %>" aria-label="Show slide <%= i + 1 %>"></button>
+      <% }) %>
+    </div>
+  <% } %>
   <div class="hero__scroll">Scroll</div>
 </section>
 
@@ -98,7 +109,7 @@
 <% } %>
 
 <section class="section section--dark">
-  <div class="container" style="display:grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items:center;">
+  <div class="container" class="container split-grid split-grid--60 split-grid--center">
     <div class="fade-in">
       <span class="eyebrow">Custom Moorti</span>
       <h2>Commission a Statue Made Only for You</h2>

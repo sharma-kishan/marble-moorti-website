@@ -85,6 +85,26 @@
     }
   }
 
+  var heroSlider = document.getElementById('heroSlider');
+  if (heroSlider) {
+    var slides = heroSlider.querySelectorAll('.hero__slide');
+    var dots = heroSlider.querySelectorAll('.hero__dot');
+    var current = 0, timer = null, AUTOPLAY_MS = 6000;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function showSlide(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach(function (s, i) { s.classList.toggle('is-active', i === current); });
+      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === current); });
+    }
+    function startAutoplay() { if (reduceMotion || slides.length < 2) return; stopAutoplay(); timer = setInterval(function () { showSlide(current + 1); }, AUTOPLAY_MS); }
+    function stopAutoplay() { if (timer) clearInterval(timer); }
+    dots.forEach(function (dot) { dot.addEventListener('click', function () { showSlide(parseInt(dot.getAttribute('data-slide-index'), 10)); startAutoplay(); }); });
+    if (slides.length > 1) {
+      startAutoplay();
+      document.addEventListener('visibilitychange', function () { if (document.hidden) stopAutoplay(); else startAutoplay(); });
+    }
+  }
+
   /* Product detail gallery: thumbnail click swaps main image */
   var mainImg = document.getElementById('productMainImage');
   var thumbs = document.querySelectorAll('.product-gallery__thumbs img');

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="breadcrumbs"><a href="/">Home</a> / <a href="/products">Products</a> / <%= product.name %></div>
 
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:56px;">
+    <div class="split-grid">
       <div class="fade-in">
         <div class="product-gallery__main">
           <% if (product.images && product.images.length) { %>

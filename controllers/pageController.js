@@ -7,6 +7,20 @@ const { toDataUri } = require('../services/imageService');
 const { buildMeta, localBusinessSchema } = require('../services/seoService');
 const { decorateProductThumb } = require('./productController');
 
+function buildHeroSlides(settings, featuredProducts) {
+  const slides = [];
+  if (settings.heroImage) slides.push(toDataUri(settings.heroImage.medium));
+  featuredProducts.forEach((product) => {
+    if (slides.length >= 5) return;
+    const images = (product.images || []).slice().sort((a, b) => a.order - b.order);
+    const primary = images[0];
+    if (!primary) return;
+    const url = toDataUri(primary.medium);
+    if (url && !slides.includes(url)) slides.push(url);
+  });
+  return slides;
+}
+
 async function home(req, res, next) {
   try {
     const settings = res.locals.settings;
@@ -37,6 +51,7 @@ async function home(req, res, next) {
       }),
       galleryPreview: galleryPreview.map((g) => ({ ...g, thumbUrl: toDataUri(g.image.thumbnail) })),
       heroImageUrl: settings.heroImage ? toDataUri(settings.heroImage.medium) : '',
+      heroSlides: buildHeroSlides(settings, featuredProducts),
     });
   } catch (err) {
     next(err);
